@@ -1,70 +1,132 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Router Usage :
+    
+    <Route path="/" exact element={ <Home /> } />
 
-## Available Scripts
+## On The Terminal Code Editor:
+### Material UI install :
 
-In the project directory, you can run:
+`npm install @mui/material @emotion/react @emotion/styled`
+### React Router install :
 
-### `npm start`
+`npm install react-router-dom`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`App.js`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    import './App.css';
+    import { Routes, Route } from "react-router-dom"  // terminal code : npm i react-router-dom 
+    import Home from './components/Home';
+    import Menu from './components/Menu';
+    import About from './components/About';
+    import Contact from './components/Contact';
+    import Navbar from './components/Navbar';
+    import Footer from './components/Footer';
 
-### `npm test`
+    function App() {
+    return (
+        <div className="App">
+        <Navbar />
+        <Routes>
+            <Route path="/" exact element={ <Home /> } />
+            <Route path="/menu" exact element={ <Menu />} />
+            <Route path="/about" exact element={ <About /> } />
+            <Route path="/contact" exact element={ <Contact /> } />
+        </Routes>
+        <Footer />
+        </div>
+    );
+    }
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    export default App;
 
-### `npm run build`
+`Navbar.js`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    import React from 'react';
+    import { Link } from 'react-router-dom';
+    import BurgerLogo from "../images/burgerkinglogo.png"; 
+    import "../styles/Navbar.css";
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    function Navbar() {
+    return (
+        <div className='navbar'>
+            <div className='main'>
+                <img src={BurgerLogo} alt='Burger Resmi' />
+                <div className='main_link'>
+                    <Link to="/">Home</Link>
+                    <Link to="/about">About</Link>
+                    <Link to="/menu">Menu</Link>
+                    <Link to="/contact">Contact</Link>
+                </div>
+            </div>
+        </div>
+    )
+    }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    export default Navbar;
 
-### `npm run eject`
+`Menu.js`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    import React from 'react';
+    import { Data } from "../Datas/Data";
+    import MenuItem from './MenuItem';
+    import "../styles/Menu.css";
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    function Menu() {
+    return (
+        <div className='menu'>
+        <h1 className='menu_title'>Burgerlerimiz</h1>
+        <div className='menu_list'>
+            { Data.map((menuItem, key) => {
+                return (
+                <MenuItem key={key} image={menuItem.image} name={menuItem.name} content={menuItem.content} price={menuItem.price} />
+                );
+            })
+            }
+        </div>
+        </div>
+    )
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    export default Menu;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`MenuItem.js`
 
-## Learn More
+    import React from 'react';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    function MenuItem( { image, name, content, price } ) {
+    return (
+        <div className='menuItem'>
+            <div style={ { backgroundImage: `url(${image})` } }></div>
+            <h1 style={ { marginBottom: "10px" } }>{name}</h1>
+            <h6 style={ { marginTop: "0px" } }>{content}</h6>
+            <p>
+                <i style={ { color: "red" } }>{price} TL</i>
+            </p>
+        </div>
+    )
+    }
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    export default MenuItem;
 
-### Code Splitting
+`Footer.js`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    import React from 'react';
+    import FacebookIcon from '@mui/icons-material/Facebook';
+    import InstagramIcon from '@mui/icons-material/Instagram';
+    import TwitterIcon from '@mui/icons-material/Twitter';
+    import "../styles/Footer.css";
+    function Footer() {
+    return (
+        <div className='footer'>
+        <div className='social_media_icon'> 
+            <FacebookIcon />
+            <InstagramIcon />
+            <TwitterIcon />
+        </div>
+        <p></p>
+        </div>
+    )
+    }
 
-### Analyzing the Bundle Size
+    export default Footer;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
